@@ -1,0 +1,8 @@
+---
+
+- name: Configure Istio service mesh
+  hosts: k8s_endpoint
+  gather_facts: False
+  become: True
+  roles:
+    - istio

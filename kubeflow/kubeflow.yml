@@ -1,0 +1,13 @@
+- name: Install Kubeflow
+  hosts: 127.0.0.1
+  gather_facts: False
+  become: False
+  
+  tasks:
+  - include: "roles/kubeflow/tasks/main.yml"
+
+  - include: "roles/kubeflow/tasks/install.yml"
+    when: run_option == "install"
+    
+  - include: "roles/kubeflow/tasks/uninstall.yml"
+    when: run_option == "uninstall"

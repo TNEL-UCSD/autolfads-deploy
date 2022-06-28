@@ -1,0 +1,21 @@
+varReference:
+- path: spec/owner/name
+  kind: Profile
+- path: metadata/name
+  kind: Profile
+- path: metadata/annotations/user
+  kind: RoleBinding
+- path: metadata/name
+  kind: RoleBinding
+- path: metadata/namespace
+  kind: RoleBinding
+- path: subjects/name
+  kind: RoleBinding
+- path: metadata/name
+  kind: AuthorizationPolicy
+- path: metadata/namespace
+  kind: AuthorizationPolicy
+- path: spec/rules/when/values
+  kind: AuthorizationPolicy
+- path: metadata/name
+  kind: Namespace

@@ -1,0 +1,13 @@
+- name: Install NFS Storage Class
+  hosts: 127.0.0.1
+  gather_facts: False
+  become: False
+  
+  tasks:
+  - include: "roles/nfs/tasks/main.yml"
+
+  - include: "roles/nfs/tasks/install.yml"
+    when: run_option == "install"
+    
+  - include: "roles/nfs/tasks/uninstall.yml"
+    when: run_option == "uninstall"

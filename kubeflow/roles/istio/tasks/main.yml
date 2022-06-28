@@ -1,0 +1,4 @@
+---
+
+- name: Verify kubectl is configured properly with remote
+  ansible.builtin.command: /usr/local/bin/kubectl version

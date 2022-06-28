@@ -1,0 +1,50 @@
+# https://www.kubeflow.org/docs/components/multi-tenancy/getting-started/#manual-profile-creation
+# Because https://github.com/kubeflow/kubeflow/pull/6339 is not merged
+apiVersion: kubeflow.org/v1beta1
+kind: Profile
+metadata:
+  name: $(profile-name)
+spec:
+  owner:
+    kind: User
+    name: $(user)
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    role: edit
+    user: $(user)
+  name: $(profile-name)-clusterrole-edit
+  namespace: $(profile-name)
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubeflow-edit
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: $(user)
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  annotations:
+    role: edit
+    user: $(user)
+  name: $(profile-name)-clusterrole-edit
+  namespace: $(profile-name)
+spec:
+  action: ALLOW
+  rules:
+  - when:
+    - key: request.headers[kubeflow-userid]
+      values:
+      - $(user)
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $(profile-name)
+  labels:
+    katib.kubeflow.org/metrics-collector-injection: enabled

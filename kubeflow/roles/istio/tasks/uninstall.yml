@@ -1,0 +1,23 @@
+---
+# Tasks file for removing Istio service mesh
+
+- name: Remove addons - Kiali
+  ansible.builtin.command: /usr/local/bin/kubectl delete -f roles/istio/files/kiali.yml
+
+- name: Remove addons - Jaeger
+  ansible.builtin.command: /usr/local/bin/kubectl delete -f roles/istio/files/jaeger.yml
+
+- name: Remove addons - Prometheus
+  ansible.builtin.command: /usr/local/bin/kubectl delete -f roles/istio/files/prometheus.yml
+
+- name: Remove Istio
+  ansible.builtin.command: /usr/local/bin/istioctl manifest generate --set profile=demo | /usr/local/bin/kubectl delete --ignore-not-found=true -f -
+
+- name: Remove Istio tags
+  ansible.builtin.command: /usr/local/bin/istioctl tag remove default
+
+- name: Remove Istio namespace istio-system
+  ansible.builtin.command: /usr/local/bin/kubectl delete namespace istio-system
+
+- name: Remove Istio label rules
+  ansible.builtin.command: /usr/local/bin/kubectl label namespace default istio-injection-

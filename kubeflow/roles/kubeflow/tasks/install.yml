@@ -1,0 +1,15 @@
+---
+# Tasks file for installing Kubeflow service
+
+- name: Install Kubeflow
+  ansible.builtin.command: /usr/local/bin/kubectl apply -k roles/kubeflow/files/kubeflow
+  ignore_errors: yes
+
+# TODO: lazily wait 3 seconds and then apply kubeflow installation again
+#       to catch any configs that weren't applied due to spooling time
+- name: Wait for cache clear
+  ansible.builtin.pause:
+    seconds: 3
+- name: Install any missing Kubeflow configs
+  ansible.builtin.command: /usr/local/bin/kubectl apply -k roles/kubeflow/files/kubeflow
+

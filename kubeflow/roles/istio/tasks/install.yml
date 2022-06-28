@@ -1,0 +1,14 @@
+---
+# Tasks file for installing Istio service mesh
+
+- name: Install Istio with profile=default 
+  ansible.builtin.command: /usr/local/bin/istioctl install --set profile=default -y
+
+- name: Install addons - Prometheus
+  ansible.builtin.command: /usr/local/bin/kubectl apply -f roles/istio/files/prometheus.yml
+
+- name: Install addons - Jaeger
+  ansible.builtin.command: /usr/local/bin/kubectl apply -f roles/istio/files/jaeger.yml
+
+- name: Install addons - Kiali
+  ansible.builtin.command: /usr/local/bin/kubectl apply -f roles/istio/files/kiali.yml

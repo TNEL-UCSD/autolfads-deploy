@@ -1,0 +1,6 @@
+---
+# Tasks file for removing Kubeflow service
+
+- name: Remove Kubeflow
+  ansible.builtin.command: /usr/local/bin/kubectl delete -k roles/kubeflow/files/kubeflow
+  ignore_errors: yes

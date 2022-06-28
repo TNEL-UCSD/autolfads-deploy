@@ -1,0 +1,22 @@
+---
+
+# This will setup the nfs-subdir-external-provisioner storage class
+# https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/tree/master/deploy
+
+- name: Setup provisioner namespace
+  ansible.builtin.command: /usr/local/bin/kubectl apply -f roles/nfs/files/namespace.yml
+  ignore_errors: yes
+
+- name: Setup RBAC
+  ansible.builtin.command: /usr/local/bin/kubectl apply -f roles/nfs/files/rbac.yml
+
+- name: Setup deployment
+  ansible.builtin.command: /usr/local/bin/kubectl apply -f roles/nfs/files/deployment.yml
+
+- name: Setup dynamic storage class
+  ansible.builtin.command: /usr/local/bin/kubectl apply -f roles/nfs/files/class.yml
+
+- name: Setup static storage class
+  ansible.builtin.command: /usr/local/bin/kubectl apply -f roles/nfs/files/class-static.yml
+
+# TODO test claim

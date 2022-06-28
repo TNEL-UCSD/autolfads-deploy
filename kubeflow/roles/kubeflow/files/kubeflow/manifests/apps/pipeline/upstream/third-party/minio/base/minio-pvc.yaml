@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: external-nfs-dynamic
+  resources:
+    requests:
+      storage: 20Gi

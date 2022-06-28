@@ -1,0 +1,18 @@
+---
+
+# Tasks file for removing NFS service
+
+- name: Remove static storage class
+  ansible.builtin.command: /usr/local/bin/kubectl delete -f roles/nfs/files/class-static.yml
+
+- name: Remove dynamic storage class
+  ansible.builtin.command: /usr/local/bin/kubectl delete -f roles/nfs/files/class.yml
+
+- name: Remove deployment
+  ansible.builtin.command: /usr/local/bin/kubectl delete -f roles/nfs/files/deployment.yml
+
+- name: Remove RBAC
+  ansible.builtin.command: /usr/local/bin/kubectl delete -f roles/nfs/files/rbac.yml
+
+- name: Remove provisioner namespace
+  ansible.builtin.command: /usr/local/bin/kubectl delete -f roles/nfs/files/namespace.yml
