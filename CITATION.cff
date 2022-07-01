@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: >-
+  Deployment strategies for scaling AutoLFADS to
+  model neural population dynamics
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Aashish
+    family-names: Patel
+    affiliation: University of California San Diego
+  - given-names: Andrew
+    family-names: Sedler
+    affiliation: Georgia Institute of Technology
+  - given-names: Jingya
+    family-names: Huang
+    affiliation: University of California San Diego
+  - given-names: Chethan
+    family-names: Pandarinath
+    affiliation: Georgia Institute of Technology
+  - given-names: Vikash
+    family-names: Gilja
+    affiliation: University of California San Diego
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.6786931

@@ -1,6 +1,6 @@
 # Scaling AutoLFADS
 
-[![](https://img.shields.io/badge/autolfads--tf2-e6aae8a-informational)](https://github.com/snel-repo/autolfads-tf2/tree/e6aae8aaa7deba2717d0c950c868b32349741258) [![](https://img.shields.io/badge/Docker-ucsdtnel%2Fautolfads-informational)](https://hub.docker.com/u/ucsdtnel/autolfads) [![](https://img.shields.io/badge/DOI-draft-critical)](#)
+[![](https://img.shields.io/badge/autolfads--tf2-e6aae8a-informational)](https://github.com/snel-repo/autolfads-tf2/tree/e6aae8aaa7deba2717d0c950c868b32349741258) [![](https://img.shields.io/badge/Docker-ucsdtnel%2Fautolfads-informational)](https://hub.docker.com/u/ucsdtnel/autolfads) [![](https://img.shields.io/badge/DOI-10.5281/zenodo.6786931-informational)](https://doi.org/10.5281/zenodo.6786931)
 
 ## Introduction
 
@@ -151,7 +151,19 @@ Find a bug? Built new integration for AutoLFADS on your framework of choice? We'
 If you found this work helpful, please cite the following works:
 
 ```
-AUTOLFADS: https://www.biorxiv.org/content/10.1101/2021.01.13.426570v2 
-
-This Repository: <TODO>
+@article{keshtkaran2021large,
+    title = {A large-scale neural network training framework for generalized estimation of single-trial population dynamics},
+    author = {Keshtkaran, Mohammad Reza and Sedler, Andrew R and Chowdhury, Raeed H and Tandon, Raghav and Basrai, Diya and Nguyen, Sarah L and Sohn, Hansem and Jazayeri, Mehrdad and Miller, Lee E and Pandarinath, Chethan},
+    journal = {BioRxiv},
+    year = {2021},
+    publisher = {Cold Spring Harbor Laboratory}
+}
+@software{patel_aashish_2022_6786932,
+    author = {Patel, Aashish and Sedler, Andrew and Huang, Jingya and Pandarinath, Chethan and Gilja, Vikash},
+    title = {Deployment strategies for scaling AutoLFADS to model neural population dynamics},
+    year = {2022},
+    publisher = {Zenodo},
+    doi = {10.5281/zenodo.6786932},
+    url = {https://doi.org/10.5281/zenodo.6786932}
+}
 ```
