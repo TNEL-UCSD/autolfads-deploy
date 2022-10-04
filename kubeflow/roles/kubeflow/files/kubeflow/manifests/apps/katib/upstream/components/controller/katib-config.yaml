@@ -19,15 +19,6 @@ data:
             "memory": "1Gi"
           }
         }
-      },
-      "CheckpointTensorFlowEvent": {
-        "image": "harbor.tnel.ucsd.edu/kfdev/checkpoint-tfevent-metricscollector:latest",
-        "imagePullPolicy": "Always",
-        "resources": {
-          "limits": {
-            "memory": "1Gi"
-          }
-        }
       }
     }
   suggestion: |-
@@ -68,7 +59,7 @@ data:
         "image": "docker.io/kubeflowkatib/suggestion-darts:v0.13.0"
       },
       "pbt": {
-        "image": "harbor.tnel.ucsd.edu/kfdev/suggestion-pbt:latest",
+        "image": "docker.io/kubeflowkatib/suggestion-pbt:v0.14.0",
         "imagePullPolicy": "Always",
         "volumeMountPath": "/opt/katib/data",
         "persistentVolumeClaimSpec": {
