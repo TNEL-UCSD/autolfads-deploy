@@ -50,6 +50,19 @@ As the neurosciences increasingly employ deep learning based models that require
 
 Machine learning models enable neuroscience researchers to uncover new insights regarding the neural basis of perception, cognition, and behavior [@vu2018shared]. However, models are often developed with hyperparameters tuned for a specific dataset, despite their intended generality. Application to new datasets requires computationally intensive hyperparameter searches for model tuning. Given the diversity of data across tasks, species, neural interface technologies, and brain regions, hyperparameter tuning is common and presents a significant barrier to evaluation and adoption of new algorithms. With the maturation of “AutoML” hyperparameter exploration libraries (HyperOpt, SkOpt, Ray), it is now easier to effectively search an extensive hyperparameter space. Solutions like KubeFlow [@kubeflow] additionally enable scaling on managed clusters and provide near codeless workflows for the entire machine learning lifecycle. This lifecycle typically begins with data ingest and initial evaluation of machine learning algorithms with respect to data, and then matures  to compute intensive model training and tuning. Building upon these tools, we empower researchers with multiple deployment strategies for leveraging AutoLFADS on local compute, on ad-hoc or unmanaged compute, and on managed or cloud compute \autoref{fig:solutions}.
 
+: Workflow overview. Summary of user burdens related to the three available deployment strategies. \label{table:workflow_overview}
+
+| Task | Local Solution | Unmanaged Solution | Managed Solution (this work) |
+|---|---|---|---|
+| Cluster management | • Routine maintenance of software and hardware | _Same as Local Solution_ | N/A |
+| Cluster orchestration | N/A | • Interacting with Ray clusters via CLI, manually setting up and tearing down clusters as needed \
+• Maintenance of YAML configuration files that specify network locations and access credentials for machines in the cluster | • Interacting with Kubernetes clusters via user interfaces (GUI or CLI) |
+| Dependency management | • Running container images via Docker, Podman, or containerd | • Installing dependencies in a virtual environment via Conda or pip | • Specifying location of desired container image |
+| Running distributed jobs | • Developing YAML model configurations and running Python scripts that use Ray to sweep hyperparameters | _Same as Local Solution_ | • Providing model and hyperparameter sweep configurations to KubeFlow via YAML or code-less UI |
+| Evaluating and tuning models | • Visualizing loss curves and intermediate output in TensorBoard \
+• Flexible post-hoc analysis | _Same as Local Solution_ | • Visualizing loss curves and intermediate output in KubeFlow \
+• Flexible post-hoc analysis |
+
 # Solutions
 
 ![Solutions for running AutoLFADS on various compute infrastructures. (Left) This column depicts a local workflow: users leverage a container image that bundles all the AutoLFADS software dependencies and provides an entrypoint directly to the LFADS package. Container images are run with a supported container runtime (e.g. docker, podman, containerd). Users can interact with this workflow by providing YAML model configuration files and command line (CLI) arguments. (Middle) This column depicts a scalable solution using Ray: users start a Ray cluster by specifying the configuration (network location and authentication) as a YAML file. They install AutoLFADS locally or in a virtual environment, update YAML model configurations and hyperparameter sweep scripts, and then run the experiment code. (Right) This column depicts a scalable solution using KubeFlow: users provide an experiment specification that includes model configuration and hyperparameter sweep specifications either as a YAML file or using a code-less UI-based workflow. After experiment submission, the KubeFlow service spawns workers across the cluster that use the same container images as the local workflow.\label{fig:solutions}](solutions.png)
@@ -59,9 +72,9 @@ When training models on a novel dataset, it is often helpful to probe hyperparam
 
 Scaling initial investigations may involve evaluating data on internal lab resources, which may comprise a set of loosely connected compute devices. In such a heterogeneous environment, we leverage Ray to efficiently create processing jobs. In this approach Ray spawns a set of workers on compute nodes that the primary spawner is then able to send jobs to. This approach requires users to provide a mapping of machine locations (e.g. IP, hostname) and access credentials. It provides useful flexibility beyond single node local compute, but requires users to manage compute cluster configuration details. Ray can also be deployed in managed compute environments, but similarly requires users to have knowledge of the underlying compute infrastructure configuration defined by the managed environment. In short, the Ray based solution requires researchers to specifically target, and potentially modify, compute cluster configuration.
 
-To more effectively leverage large scale compute in managed infrastructure, such as those provided by commercial and academic cloud providers, we use KubeFlow which is a comprehensive machine learning solution designed to be operated as a service on top of Kubernetes based orchestration. This approach enables code-less workflows and provides a rich set of tooling around development (e.g. notebooks, algorithm exploration) and automation (e.g. Pipelines) that reduces research iteration time. In contrast to Ray, configuration requirements are algorithm focused and are generally agnostic to the lower level details related to compute cluster configuration.  With this solution, Kubernetes manages the underlying compute resource pool and is able to efficiently schedule compute jobs. Within KubeFlow, we leverage Katib [@george2020katib] – KubeFlow’s “AutoML” framework – to efficiently explore the hyperparameter space and specify individual sweeps. As KubeFlow is an industry-grade tool, many cloud providers offer KubeFlow as a service or provide supported pathways for deploying a KubeFlow cluster, facilitating replication and compute resource scaling.
+To more effectively leverage large scale compute in managed infrastructure, such as those provided by commercial and academic cloud providers, we use KubeFlow which is a comprehensive machine learning solution designed to be operated as a service on top of Kubernetes based orchestration. This approach enables code-less workflows and provides a rich set of tooling around development (e.g. notebooks, algorithm exploration) and automation (e.g. Pipelines) that reduces research iteration time. In contrast to Ray, configuration requirements are algorithm focused and are generally agnostic to the lower level details related to compute cluster configuration. With this solution, Kubernetes manages the underlying compute resource pool and is able to efficiently schedule compute jobs. Within KubeFlow, we leverage Katib [@george2020katib] – KubeFlow’s “AutoML” framework – to efficiently explore the hyperparameter space and specify individual sweeps. As KubeFlow is an industry-grade tool, many cloud providers offer KubeFlow as a service or provide supported pathways for deploying a KubeFlow cluster, facilitating replication and compute resource scaling.
 
-The two distributed workflows provided, Ray and KubeFlow based, each have their respective advantages and disadvantages. The correct choice for a specific research end user is dependent upon their requirements and access to compute resources. Thus we provide an evaluation table\autoref{table:solutions_matrix} as a starting point in this decision making process.
+The two distributed workflows provided, Ray and KubeFlow based, each have their respective advantages and disadvantages. The correct choice for a specific research end user is dependent upon their requirements and access to compute resources. Thus we provide an evaluation table\autoref{table:workflow_overview} as a starting point in this decision making process.
 
 # Evaluation
 
@@ -81,23 +94,6 @@ A core innovation of AutoLFADS is the integration of PBT for hyperparameter expl
 
 
 ![AutoLFADS inferred firing rates, relative to conventional estimation strategies, aligned to movement onset time (dashed vertical line at 250ms) for 3 example neurons (columns) and 6 example conditions (colors; out of 108 conditions). Smoothed spike rates calculated with a Gaussian kernel, 50 ms st.dev. (top), trial-averaged peristimulus time histogram (PSTH) (middle), and inferred firing rates of AutoLFADS on KubeFlow (bottom). The smoothed spikes and inferred firing rates are shown for corresponding trials in the validation set (trial count range from 2 to 6 per condition, shown as individual traces for each trial), while the PSTHs are calculated for all trials (trial counts range from 19 to 24 per condition, one trace per condition). In addition, the PSTHs are calculated based on the averaged spikes smoothed with a 70 ms st.dev Gaussian kernel, which corresponds to the definition of PSTHs used for the evaluation metric PSTH R2 (Table 1). In all subfigures, the inferred rates are calculated with a time resolution of 5ms. \label{fig:inferred_rates}](inferred_rates.png)
-
-
-: Solutions comparison. Summary of advantages and disadvantages of the two proposed distributed deployment strategies. \label{table:solutions_matrix}
-
-
-|  | KubeFlow + Katib | Ray + Tune |
-|---|---|---|
-| Pros | • Built upon Kubernetes, which is industry standard tooling for machine learning and data science at scale with a very mature API \
-• This workflow is supported by many first and third party service providers which simplifies cloud deployment and scaling (directly supported by Amazon Web Services, Google Cloud, Azure and other commercial cloud providers; increasing support by academic supercomputing services) \
-• Enables a codeless workflow with a web dashboard for experiment management \
-• If Kubernetes is already running on available compute infrastructure, this workflow can be run as a service in parallel with other workflows | • Ray is a library focused approach with a lower technical barrier to entry \
-• Ray provides flexibility with respect to deployment strategy (Ray workflows can be deployed on a local machine or an ad-hoc, unmanaged compute cluster) \
-• As Ray has a lower technical barrier to entry, novel research algorithms are often integrated more rapidly |
-| Cons | • Requires an available Kubernetes deployment. This could be Kubernetes as a service (e.g. Amazon Elastic Kubernetes Service, Google Kubernetes Engine) or a custom Kubernetes installation. \
-• KubeFlow installation can present a higher technical barrier to entry due to multiple bundled components | • Common workflows lack industry standardization at present \
-• Users must provide custom run scripts for specific algorithms to interact with Ray \
-• Currently there is only a single first party service provider (Anyscale) supporting Ray workflows |
 
 
 # References
