@@ -10,9 +10,9 @@ authors:
     equal-contrib: true
     # orcid: 0000-0000-0000-0000
     affiliation: "1, 2"
-  - name: Andrew Sedler
+  - name: Andrew R. Sedler
     equal-contrib: true
-    # orcid: 0000-0000-0000-0000
+    orcid: 0000-0001-9480-0698
     affiliation: "3, 4"
   - name: Jingya Huang
   # orcid: 0000-0000-0000-0000
@@ -29,9 +29,9 @@ affiliations:
    index: 1
  - name: Institute for Neural Computation, University of California San Diego
    index: 2
- - name: Department of Biomedical Engineering, Georgia Institute of Technology
-   index: 3
  - name: Center for Machine Learning, Georgia Institute of Technology
+   index: 3
+ - name: Department of Biomedical Engineering, Georgia Institute of Technology
    index: 4
  - name: Department of Neurosurgery, Emory University
    index: 5
@@ -42,7 +42,7 @@ bibliography: paper.bib
 
 # Summary
 
-Advances in neural interface technology are facilitating parallel, high-dimensional time series measurements of the brain in action. A powerful strategy for analyzing these measurements is to apply unsupervised learning techniques to uncover lower-dimensional latent dynamics that explain much of the variance in the high-dimensional measurements [@cunningham2014dimensionality; @vyas2020computation; @golub2018learning]. Latent factor analysis via dynamical systems (LFADS) [@pandarinath2018inferring] provides a deep learning approach for extracting estimates of these latent dynamics from neural population data. The recently developed AutoLFADS framework [@keshtkaran2021large] extends LFADS by using Population Based Training (PBT) [@jaderberg2017population] to effectively and scalably tune model hyperparameters, a critical step for accurate modeling of neural population data. As hyperparameter sweeps are one of the most computationally demanding processes in model development, these workflows should be deployed in a computationally efficient and cost effective manner given the compute resources available (e.g. local, institutionally-supported, or commercial computing clusters). The initial implementation of AutoLFADS used the Ray library [@moritz2018ray] to enable support for specific local and commercial cloud workflows. We extend this support, by providing additional options for training AutoLFADS models using local clusters in a container-native approach (e.g. docker, podman), unmanaged compute clusters leveraging Ray, and managed compute clusters leveraging KubeFlow and Kubernetes orchestration.
+Advances in neural interface technology are facilitating parallel, high-dimensional time series measurements of the brain in action. A powerful strategy for analyzing these measurements is to apply unsupervised learning techniques to uncover lower-dimensional latent dynamics that explain much of the variance in the high-dimensional measurements [@cunningham2014dimensionality; @vyas2020computation; @golub2018learning]. Latent factor analysis via dynamical systems (LFADS) [@pandarinath2018inferring] provides a deep learning approach for extracting estimates of these latent dynamics from neural population data. The recently developed AutoLFADS framework [@keshtkaran2021large] extends LFADS by using Population Based Training (PBT) [@jaderberg2017population] to effectively and scalably tune model hyperparameters, a critical step for accurate modeling of neural population data. As hyperparameter sweeps are one of the most computationally demanding processes in model development, these workflows should be deployed in a computationally efficient and cost effective manner given the compute resources available (e.g. local, institutionally-supported, or commercial computing clusters). The initial implementation of AutoLFADS used the Ray library [@moritz2018ray] to enable support for specific local and commercial cloud workflows. We extend this support, by providing additional options for training AutoLFADS models using local clusters in a container-native approach (e.g. Docker, Podman), unmanaged compute clusters leveraging Ray, and managed compute clusters leveraging KubeFlow and Kubernetes orchestration.
 
 As the neurosciences increasingly employ deep learning based models that require compute intensive hyperparameter optimization [@keshtkaran2019enabling; @willett2021high; @yu2021fast], standardization and dissemination of computational methods becomes increasingly challenging. Although this work specifically provides implementations of AutoLFADS, the tooling provided demonstrates strategies for employing computation at scale while facilitating dissemination and reproducibility.
 
