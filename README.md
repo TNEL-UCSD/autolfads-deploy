@@ -114,7 +114,7 @@ Running AutoLFADS using Ray enables scaling your processing jobs to many worker 
 
 Running AutoLFADS using KubeFlow enables scaling your experiments across an entire cluster. This workflow allows for isolated multi-user utilization and is ideal for running on managed infrastructure (e.g. University, public or private cloud) or on service-oriented clusters (i.e. no direct access to compute instances). It leverages industry standard tooling and enables scalable compute workflows beyond AutoLFADS for groups looking to adopt a framework for scalable machine learning.
 
-If you are using a cloud provider, KubeFlow provides a series of [tutorials](https://www.kubeflow.org/docs/started/installing-kubeflow/#install-a-packaged-kubeflow-distribution) to get you setup with a completely configured install. We currently require a [feature](https://github.com/kubeflow/katib/pull/1833) that will be released in KubeFlow 1.6 (Katib 0.14). The below installation provides a pathway for installing KubeFlow on a _vanilla_ Kubernetes cluster integrating the noted changes.
+If you are using a cloud provider, KubeFlow provides a series of [tutorials](https://www.kubeflow.org/docs/started/installing-kubeflow/#install-a-packaged-kubeflow-distribution) to get you setup with a completely configured install. We currently require a [feature](https://github.com/kubeflow/katib/pull/1833) that was introduced in Katib 0.14. The below installation provides a pathway for installing KubeFlow on a _vanilla_ Kubernetes cluster integrating the noted changes.
 
 **Prerequisites:** Kubernetes cluster access and Ansible (installed locally; only needed when deploying KubeFlow)
 

@@ -23,7 +23,3 @@ ansible-playbook nfs_storage_class.yml --extra-vars "run_option=install"
 # Cluster should first be initialized using: `ops init <cluster>`
 ansible-playbook nfs_storage_class.yml --extra-vars "run_option=uninstall"
 ```
-
-## WIP: Deployment
-- Test should be run on installation
-- Volumes should be reflected in variables specific to initialized deployment (e.g. staging, production)
