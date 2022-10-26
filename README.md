@@ -15,6 +15,7 @@ This repository provides a set of solutions for running [AutoLFADS](https://gith
 | Cost                                              | $               | $ - $$    | $ - $$$       |
 
 
+
 ## Installation & Usage
 
 ### Container
@@ -129,7 +130,7 @@ ansible-playbook nfs_storage_class.yml --extra-vars "run_option=install"
 ```bash
 ansible-playbook kubeflow.yml --extra-vars "run_option=install"
 ```
-1. Use `examples/lorenz_job.yaml` as a template to specify a new job with desired hyperparameter exploration configuration and AutoLFADS configuration
+1. Use `examples/mc_maze_job.yaml` as a template to specify a new job with desired hyperparameter exploration configuration and AutoLFADS configuration. Refer to the dataset [README](examples/data/README.md) for details on how to acquire and prepare the data.
 1. Run AutoLFADS
     ```bash
     kubectl create -f experiment.yaml
