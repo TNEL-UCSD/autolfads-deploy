@@ -19,7 +19,7 @@ authors:
     affiliation: "1"
   - name: Chethan Pandarinath
     # orcid: 0000-0000-0000-0000
-    affiliation: "3,4,5**"
+    affiliation: "3, 4, 5**"
   - name: Vikash Gilja^[Corresponding author]
     # orcid: 0000-0000-0000-0000
     affiliation: "1**"
