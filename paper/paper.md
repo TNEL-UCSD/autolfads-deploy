@@ -15,26 +15,28 @@ authors:
     orcid: 0000-0001-9480-0698
     affiliation: "3, 4"
   - name: Jingya Huang
-  # orcid: 0000-0000-0000-0000
+    # orcid: 0000-0000-0000-0000
     affiliation: "1"
   - name: Chethan Pandarinath
     # orcid: 0000-0000-0000-0000
-    affiliation: "3, 4, 5**"
+    affiliation: "3, 4, 5, †"
   - name: Vikash Gilja^[Corresponding author]
     # orcid: 0000-0000-0000-0000
-    affiliation: "1**"
+    affiliation: "1, †"
 
 affiliations:
- - name: Department of Electrical and Computer Engineering, University of California San Diego
-   index: 1
- - name: Institute for Neural Computation, University of California San Diego
-   index: 2
- - name: Center for Machine Learning, Georgia Institute of Technology
-   index: 3
- - name: Department of Biomedical Engineering, Georgia Institute of Technology
-   index: 4
- - name: Department of Neurosurgery, Emory University
-   index: 5
+  - name: Department of Electrical and Computer Engineering, University of California San Diego
+    index: 1
+  - name: Institute for Neural Computation, University of California San Diego
+    index: 2
+  - name: Center for Machine Learning, Georgia Institute of Technology
+    index: 3
+  - name: Department of Biomedical Engineering, Georgia Institute of Technology
+    index: 4
+  - name: Department of Neurosurgery, Emory University
+    index: 5
+  - name: These authors contributed equally
+    index: "†"
 date: 30 June 2022
 bibliography: paper.bib
 
