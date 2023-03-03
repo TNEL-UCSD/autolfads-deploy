@@ -4,7 +4,15 @@
 
 ## Introduction
 
-This repository provides a set of solutions for running [AutoLFADS](https://github.com/snel-repo/autolfads-tf2/tree/main/lfads-tf2) in different compute environments and workflows. Use the solution matrix as a rough guide for identifying an suitable workflow:
+This repository provides a set of solutions for running [AutoLFADS](https://github.com/snel-repo/autolfads-tf2/tree/main/lfads-tf2) in different compute environments and workflows addressing the need to perform computationally demanding hyperparameter sweeps during model development within cost and computational resource constraints.
+
+![](paper/solutions.png)
+
+- _Local workflow_: users directly leverage a container image that bundles all the AutoLFADS software dependencies and provides an entrypoint directly to the LFADS package. Interactivity with this workflow is provided via YAML model configuration files and command line arguments.
+- _Scalable solution using Ray_: users configure a Ray cluster and interact with the workflow by updating YAML model configurations, updating hyperparameter sweep scripts, and then running experiment code.
+- _Scalable solution using KubeFlow_: users interact with a KubeFlow service by providing an experiment specification that includes model configuration and hyperparameter sweep specifications either as a YAML file or using a code-less UI-based workflow.
+
+The solution matrix below provides a rough guide for identifying an suitable workflow:
 
 |                                                   | Local Container | Ray       | KubeFlow      |
 |---------------------------------------------------|-----------------|-----------|---------------|
@@ -14,7 +22,7 @@ This repository provides a set of solutions for running [AutoLFADS](https://gith
 | Infrastructure                                    | Local           | Unmanaged | Managed/Cloud |
 | Cost                                              | $               | $ - $$    | $ - $$$       |
 
-
+> Details describing the AutoLFADS solutions and evaluation against the Neural Latents Benchmark datasets can be found [here](paper/paper.pdf).
 
 ## Installation & Usage
 
