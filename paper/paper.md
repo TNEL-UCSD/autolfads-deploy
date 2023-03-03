@@ -99,5 +99,17 @@ A core innovation of AutoLFADS is the integration of PBT for hyperparameter expl
 
 ![AutoLFADS inferred firing rates, relative to conventional estimation strategies, aligned to movement onset time (dashed vertical line at 250ms) for 3 example neurons (columns) and 6 example conditions (colors; out of 108 conditions). Smoothed spike rates calculated with a Gaussian kernel, 50 ms st.dev. (top), trial-averaged peristimulus time histogram (PSTH) (middle), and inferred firing rates of AutoLFADS on KubeFlow (bottom). The smoothed spikes and inferred firing rates are shown for corresponding trials in the validation set (trial count range from 2 to 6 per condition, shown as individual traces for each trial), while the PSTHs are calculated for all trials (trial counts range from 19 to 24 per condition, one trace per condition). In addition, the PSTHs are calculated based on the averaged spikes smoothed with a 70 ms st.dev Gaussian kernel, which corresponds to the definition of PSTHs used for the evaluation metric PSTH R2 (Table 1). In all subfigures, the inferred rates are calculated with a time resolution of 5ms. \label{fig:inferred_rates}](inferred_rates.png)
 
+# Acknowledgements
+
+Funding for this project was provided by: NIH-NIDCD 1R01DC018446, NSF EFRI 2223822, UCSD ORA Center Launch Program (VG); NIH-BRAIN/NIDA 1RF1DA055667, NIH-NINDS/OD DP2NS127291, NSF NCS 1835364, the Alfred P. Sloan Foundation (CP); and NSF Graduate Research Fellowship DGE-1650044 (ARS).
+
+# Author contributions
+
+We describe contributions to this paper using the CRediT taxonomy [@credit].
+
+Writing and Visualization: ANP, ARS, JH, CP, VG;
+Software: ANP, ARS;
+Validation: JH, ARS, ANP;
+Supervision: CP, VG.
 
 # References
