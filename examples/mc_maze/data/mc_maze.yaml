@@ -1,4 +1,5 @@
 ---
+# Config for Neural Latents MC Maze data
 MODEL:
   DATA_DIM: 182
   CS_DIM: 45
