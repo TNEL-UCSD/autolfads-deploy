@@ -27,6 +27,8 @@ The solution matrix below provides a rough guide for identifying an suitable wor
 
 ## Installation & Usage
 
+Follow the appropriate guide below to run AutoLFADS on your target platform. We recommend copying the `example/lorenz` directory to your team's source control and modifying the files as necessary to organize and execute custom experiments.
+
 ### Container
 
 Running LFADS in a container provides isolation from your host operating system and instead relies on a system installed container runtime. This workflow is suitable for evaluating algorithm operation on _small_ datasets or exploring specific model parameter changes. It is suitable for use on shared compute environments and other platforms where there is limited system package isolation.
