@@ -27,6 +27,10 @@ The solution matrix below provides a rough guide for identifying an suitable wor
 
 ## Installation & Usage
 
+Follow the appropriate guide below to run AutoLFADS on your target platform. We recommend copying the following files to your team's source control and modifying them as necessary to organize and execute custom experiments.
+- Model configuration file (e.g. `examples/lorenz/data/lorenz.yaml`)
+- KubeFlow configuration file (e.g. `examples/lorenz/job.yaml`) or Ray run script (e.g. `examples/lorenz/run_lorenz.py`)
+
 ### Container
 
 Running LFADS in a container provides isolation from your host operating system and instead relies on a system installed container runtime. This workflow is suitable for evaluating algorithm operation on _small_ datasets or exploring specific model parameter changes. It is suitable for use on shared compute environments and other platforms where there is limited system package isolation.
@@ -57,6 +61,16 @@ Running LFADS in a container provides isolation from your host operating system 
     ```
 1. Run LFADS
     ```bash
+    # Docker flags
+    #   --rm removes container resources on exit
+    #   -it start the container with interactive input and TTY
+    #   -v <host location>:<container location> mount a path from host to container
+    #       $(pwd): expands the terminal working directory so you don't need to type a fully qualified path
+    # AutoLFADS overrides
+    #   --data location inside container with data
+    #   --checkpoint location inside container that maps to a host location to store model outputs
+    #   --config-file location inside container that contains training configuration
+    #   KEY VALUE command line overrides for training configuration
     docker run --rm -it -v $(pwd):/share ucsdtnel/autolfads:$TAG \
         --data /share/data \
         --checkpoint /share/output \
@@ -150,6 +164,7 @@ ansible-playbook kubeflow.yml --extra-vars "run_option=install"
     kubectl port-forward svc/istio-ingressgateway -n istio-system --address 0.0.0.0 8080:80
     # Browse to http://localhost:8080
     ```
+1. Results can be downloaded from the KubeFlow [Volumes UI](https://www.arrikto.com/blog/kubeflow/news/democratizing-the-use-of-pvcs-with-the-introduction-of-a-volume-manager-ui/) or directly from the data mount location.
 
 ## Contributing
 
