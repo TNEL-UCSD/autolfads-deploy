@@ -22,7 +22,7 @@ Ray:
 # 1. Follow the instructions in the repository root README.md for setting up your AutoLFADS cluster
 # 2. Review the search parameters in run_mc_maze.py
 # 3. Start the experiment:
-python3 run_lorenz.py
+python3 run_mc_maze.py
 ```
 
 KubeFlow:
