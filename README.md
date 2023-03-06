@@ -61,6 +61,16 @@ Running LFADS in a container provides isolation from your host operating system 
     ```
 1. Run LFADS
     ```bash
+    # Docker flags
+    #   --rm removes container resources on exit
+    #   -it start the container with interactive input and TTY
+    #   -v <host location>:<container location> mount a path from host to container
+    #       $(pwd): expands the terminal working directory so you don't need to type a fully qualified path
+    # AutoLFADS overrides
+    #   --data location inside container with data
+    #   --checkpoint location inside container that maps to a host location to store model outputs
+    #   --config-file location inside container that contains training configuration
+    #   KEY VALUE command line overrides for training configuration
     docker run --rm -it -v $(pwd):/share ucsdtnel/autolfads:$TAG \
         --data /share/data \
         --checkpoint /share/output \
@@ -154,6 +164,7 @@ ansible-playbook kubeflow.yml --extra-vars "run_option=install"
     kubectl port-forward svc/istio-ingressgateway -n istio-system --address 0.0.0.0 8080:80
     # Browse to http://localhost:8080
     ```
+1. Results can be downloaded from the KubeFlow [Volumes UI](https://www.arrikto.com/blog/kubeflow/news/democratizing-the-use-of-pvcs-with-the-introduction-of-a-volume-manager-ui/) or directly from the data mount location.
 
 ## Contributing
 
