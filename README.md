@@ -27,7 +27,9 @@ The solution matrix below provides a rough guide for identifying an suitable wor
 
 ## Installation & Usage
 
-Follow the appropriate guide below to run AutoLFADS on your target platform. We recommend copying the `example/lorenz` directory to your team's source control and modifying the files as necessary to organize and execute custom experiments.
+Follow the appropriate guide below to run AutoLFADS on your target platform. We recommend copying the following files to your team's source control and modifying them as necessary to organize and execute custom experiments.
+- Model configuration file (e.g. `examples/lorenz/data/lorenz.yaml`)
+- KubeFlow configuration file (e.g. `examples/lorenz/job.yaml`) or Ray run script (e.g. `examples/lorenz/run_lorenz.py`)
 
 ### Container
 
