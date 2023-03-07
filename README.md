@@ -114,12 +114,12 @@ Running AutoLFADS using Ray enables scaling your processing jobs to many worker 
     ```bash
     python3 -m pip install -e tune-tf2
     ```
-1. Modify [`ray_cluster_template.yaml`](https://github.com/TNEL-UCSD/autolfads-kubeflow/blob/master/ray/ray_cluster_template.yaml) with the appropriate information. Note, you will need to fill in values for all `<...>` stubs.
-1. Modify `examples/lorenz/ray_run.py` with the desired hyperparameter exploration configuration
-1. Modify `examples/lorenz/ray_run.py` variable `SINGLE_MACHINE` to be `False`
+1. Modify `ray/ray_cluster_template.yaml` with the appropriate information. Note, you will need to fill in values for all `<...>` stubs.
+1. Modify `ray/run_pbt.py` with the desired hyperparameter exploration configuration
+1. Modify `ray/run_pbt.py` variable `SINGLE_MACHINE` to be `False`
 1. Run AutoLFADS
     ```bash
-    python3 ray_run.py
+    python3 ray/run_pbt.py
     ```
 
 ### KubeFlow
@@ -142,7 +142,7 @@ ansible-playbook nfs_storage_class.yml --extra-vars "run_option=install"
 ```bash
 ansible-playbook kubeflow.yml --extra-vars "run_option=install"
 ```
-1. Use `examples/lorenz/job.yaml` as a template to specify a new job with desired hyperparameter exploration configuration and AutoLFADS configuration. Refer to the dataset [README](examples/README.md) for details on how to acquire and prepare the data.
+1. Use `examples/lorenz/kubeflow_job.yaml` as a template to specify a new job with desired hyperparameter exploration configuration and AutoLFADS configuration. Refer to the dataset [README](examples/README.md) for details on how to acquire and prepare the data.
 1. Run AutoLFADS
     ```bash
     kubectl create -f kubeflow_job.yaml
