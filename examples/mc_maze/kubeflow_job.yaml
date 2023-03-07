@@ -131,7 +131,7 @@ spec:
                   - "main.py"
                   - "--checkpoint=/var/log/katib/checkpoints"
                   - "--data=/share/data"
-                  - "--config-file=/share/data/mc_maze.yaml"
+                  - "--config-file=/share/data/config.yaml"
                   - "--epochs=50"
                   - "TRAIN.LR.INIT"
                   - "${trialParameters.learningRate}"

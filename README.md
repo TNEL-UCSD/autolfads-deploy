@@ -28,8 +28,8 @@ The solution matrix below provides a rough guide for identifying an suitable wor
 ## Installation & Usage
 
 Follow the appropriate guide below to run AutoLFADS on your target platform. We recommend copying the following files to your team's source control and modifying them as necessary to organize and execute custom experiments.
-- Model configuration file (e.g. `examples/lorenz/data/lorenz.yaml`)
-- KubeFlow configuration file (e.g. `examples/lorenz/job.yaml`) or Ray run script (e.g. `examples/lorenz/run_lorenz.py`)
+- Model configuration file (e.g. `examples/lorenz/data/config.yaml`)
+- KubeFlow configuration file (e.g. `examples/lorenz/kubeflow_job.yaml`) or Ray run script (e.g. `examples/lorenz/ray_run.py`)
 
 ### Container
 
@@ -77,17 +77,6 @@ Running LFADS in a container provides isolation from your host operating system 
         --config-file /share/data/config.yaml
     ```
 
-**Prerequisites:** Container runtime and docker-compose - [Linux / Mac / Windows](https://github.com/docker/compose/releases).
-
-1. Copy the reference `docker-compose.yaml` file to your `<my-data-directory>` folder with a similar structure to that noted above.
-1. Open the `docker-compose.yaml` file in a text editor
-1. (OPTIONAL) Change the `image` field to `ucsdtnel/autolfads:latest-gpu` if you are using a GPU and have the [nvidia-container-runtime](https://developer.nvidia.com/nvidia-container-runtime) setup
-1. Note the `container_name` value (change this value if you want to run multiple jobs simultaneously)
-1. Close the `docker-compose.yaml` file after reviewing the configuration paths
-1. Run `docker-compose up -d` to run LFADS
-1. Run `docker logs -f <container name value>` to review the log outputs
-
-
 ### Ray
 
 Running AutoLFADS using Ray enables scaling your processing jobs to many worker nodes in an ad-hoc cluster that you specify. This workflow is suitable for running on unmanaged or loosely managed compute resources (e.g. lab compute machines) where you have direct ssh access to the instances. It is also possible to use this workflow with *VM* based cloud environments as noted [here](https://snel-repo.github.io/autolfads/create_infra).
@@ -126,11 +115,11 @@ Running AutoLFADS using Ray enables scaling your processing jobs to many worker 
     python3 -m pip install -e tune-tf2
     ```
 1. Modify [`ray_cluster_template.yaml`](https://github.com/TNEL-UCSD/autolfads-kubeflow/blob/master/ray/ray_cluster_template.yaml) with the appropriate information. Note, you will need to fill in values for all `<...>` stubs.
-1. Modify `ray/run_pbt.py` with the desired hyperparameter exploration configuration
-1. Modify `ray/run_pbt.py` variable `SINGLE_MACHINE` to be `False`
+1. Modify `examples/lorenz/ray_run.py` with the desired hyperparameter exploration configuration
+1. Modify `examples/lorenz/ray_run.py` variable `SINGLE_MACHINE` to be `False`
 1. Run AutoLFADS
     ```bash
-    python3 ray/run_pbt.py
+    python3 ray_run.py
     ```
 
 ### KubeFlow
@@ -153,10 +142,10 @@ ansible-playbook nfs_storage_class.yml --extra-vars "run_option=install"
 ```bash
 ansible-playbook kubeflow.yml --extra-vars "run_option=install"
 ```
-1. Use `examples/mc_maze/job.yaml` as a template to specify a new job with desired hyperparameter exploration configuration and AutoLFADS configuration. Refer to the dataset [README](examples/mc_maze/data/README.md) for details on how to acquire and prepare the data.
+1. Use `examples/lorenz/job.yaml` as a template to specify a new job with desired hyperparameter exploration configuration and AutoLFADS configuration. Refer to the dataset [README](examples/README.md) for details on how to acquire and prepare the data.
 1. Run AutoLFADS
     ```bash
-    kubectl create -f experiment.yaml
+    kubectl create -f kubeflow_job.yaml
     ```
 1. (Optional) Start or monitor job using KubeFlow UI
     ```bash

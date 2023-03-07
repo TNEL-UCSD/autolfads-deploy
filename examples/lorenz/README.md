@@ -7,29 +7,30 @@ The Lorenz dataset provides a toy example for evaluating AutoLFADS. The data can
 Container Runtime:
 
 ```bash
-# 1. Data should be downloaded to the data folder in this directory
-# 2. Replace $TAG with latest or the specific AutoLFADS image version you want to run
-# 3. Start the experiment:
+# 1. Replace $TAG with latest or the specific AutoLFADS image version you want to run
+# 2. Start the experiment:
 docker run --rm -it -v $(pwd):/share ucsdtnel/autolfads:$TAG \
         --data /share/data \
         --checkpoint /share/output \
-        --config-file /share/data/lorenz.yaml
+        --config-file /share/data/config.yaml
 ```
+
+> `container_run.sh` is provided as a convenience for Mac/Linux users
 
 Ray:
 
 ```bash
 # 1. Follow the instructions in the repository root README.md for setting up your AutoLFADS cluster
-# 2. Review the search parameters in run_lorenz.py
+# 2. Review the search parameters in ray_run.py
 # 3. Start the experiment:
-python3 run_lorenz.py
+python3 ray_run.py
 ```
 
 KubeFlow:
 
 ```bash
 # 1. Lorenz data should be accessible in the cluster
-# 2. Review namespace, paths, parameters, etc. in job.yml
+# 2. Review namespace, paths, parameters, etc. in kubeflow_job.yml
 # 3. Start the experiment:
-kubectl apply -f job.yml
+kubectl apply -f kubeflow_job.yml
 ```

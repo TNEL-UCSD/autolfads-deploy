@@ -20,7 +20,7 @@ MODEL:
 TRAIN:
   DATA:
     DIR: /share/data
-    PREFIX: lfads
+    PREFIX: lorenz
   PATIENCE: 150
   BATCH_SIZE: 500
   MAX_EPOCHS: 10000

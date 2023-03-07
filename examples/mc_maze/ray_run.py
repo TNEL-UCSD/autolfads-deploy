@@ -22,7 +22,7 @@ CFG_PATH = "./data/config.yaml"
 # Directory to save the PBT run
 PBT_DIR = Path("./ray_output")
 # Path and prefix for the data file
-DATA_PATH = Path("./data/dataset.h5")
+DATA_PATH = Path("./data/mc_maze_train_dataset.h5")
 
 # ---------- PBT RUN CONFIGURATION ----------
 # whether to use single machine or cluster
