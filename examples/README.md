@@ -1,6 +1,6 @@
 # Examples
 
-This directory contains example AutoLFADS experiments. Refer to the individual directories for dataset descriptions and usage instructions.
+This directory contains example AutoLFADS experiments. Refer to the individual directories for dataset descriptions and usage instructions. Utility scripts to generate summary figures of firing rate (`firing_rate_inference.py`) and hyperparameter progression (`hp_progression.py`) are also found in the root examples directory. Use `--help` with either script to learn more about their usage.
 
 # Useful Tips
 
