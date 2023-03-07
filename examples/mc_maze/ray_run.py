@@ -1,15 +1,14 @@
 """
 This is the template script for running PBT with lfads_tf2
-modified to be run with the Lorenz dataset.
+modified to be run with the mc_maze dataset.
 Ref: https://github.com/snel-repo/autolfads-tf2/blob/main/example_scripts/run_pbt.py
 """
 
 import shutil
-from os import path
+from pathlib import Path
 
 import ray
 import yaml
-from lfads_tf2.defaults import DEFAULT_CONFIG_DIR
 from lfads_tf2.utils import flatten
 from ray import tune
 from tune_tf2.models import create_trainable_class
@@ -18,15 +17,12 @@ from tune_tf2.pbt.schedulers import MultiStrategyPBT
 from tune_tf2.pbt.trial_executor import SoftPauseExecutor
 
 # ---------- PBT I/O CONFIGURATION ----------
-# the default configuration file for the LFADS model
-CFG_PATH = path.join(DEFAULT_CONFIG_DIR, "data/lorenz.yaml")
-# the directory to save PBT runs (usually '~/ray_results')
-PBT_HOME = path.expanduser("~/ray_results")
-# the name of this PBT run (run will be stored at {PBT_HOME}/{PBT_NAME})
-RUN_NAME = "autolfads_lorenz"  # the name of the PBT run
-# the dataset to train the PBT model on
-DATA_DIR = ("data")
-DATA_PREFIX = "lorenz"
+# Configuration file for default LFADS hyperparameters
+CFG_PATH = "./data/config.yaml"
+# Directory to save the PBT run
+PBT_DIR = Path("./ray_output")
+# Path and prefix for the data file
+DATA_PATH = Path("./data/dataset.h5")
 
 # ---------- PBT RUN CONFIGURATION ----------
 # whether to use single machine or cluster
@@ -56,7 +52,7 @@ EPOCHS_PER_GENERATION = 25
 # ---------------------------------------------
 
 # setup the data hyperparameters
-dataset_info = {"TRAIN.DATA.DIR": DATA_DIR, "TRAIN.DATA.PREFIX": DATA_PREFIX}
+dataset_info = {"TRAIN.DATA.DIR": DATA_PATH.parent, "TRAIN.DATA.PREFIX": DATA_PATH.name}
 # setup initialization of search hyperparameters
 init_space = {name: tune.sample_from(hp.init) for name, hp in HYPERPARAM_SPACE.items()}
 # load the configuration as a dictionary and update for this run
@@ -78,8 +74,8 @@ try:
     # run the tune job, excepting errors
     tune.run(
         tuneLFADS,
-        name=RUN_NAME,
-        local_dir=PBT_HOME,
+        name=PBT_DIR.name,
+        local_dir=PBT_DIR.parent,
         config=flat_cfg_dict,
         resources_per_trial=RESOURCES_PER_TRIAL,
         num_samples=NUM_WORKERS,
@@ -94,14 +90,13 @@ except tune.error.TuneError:
     pass
 
 # load the results dataframe for this run
-pbt_dir = path.join(PBT_HOME, RUN_NAME)
-df = tune.Analysis(pbt_dir).dataframe()
+df = tune.Analysis(PBT_DIR).dataframe()
 df = df[df.logdir.apply(lambda path: "best_model" not in path)]
 # find the best model
 best_model_logdir = df.loc[df[PBT_METRIC].idxmin()].logdir
-best_model_src = path.join(best_model_logdir, "model_dir")
+best_model_src = Path(best_model_logdir) / "model_dir"
 # copy the best model somewhere easy to find
-best_model_dest = path.join(pbt_dir, "best_model")
+best_model_dest = PBT_DIR / "best_model"
 shutil.copytree(best_model_src, best_model_dest)
 # perform posterior sampling
 from lfads_tf2.models import LFADS  # noqa: E402
