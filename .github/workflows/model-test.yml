@@ -1,0 +1,43 @@
+name: 'Model Test'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - review_requested
+
+permissions:
+  contents: read
+
+# This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  model-test:
+    runs-on: self-hosted
+    # runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Evaluate Training
+        run: |
+          docker run --rm -t -v ${GITHUB_WORKSPACE}/examples/lorenz:/share ucsdtnel/autolfads:latest \
+            --data /share/data \
+            --checkpoint /share/output \
+            --config-file /share/data/config.yaml \
+            --epochs 10 TRAIN.KL.START_EPOCH -80 TRAIN.L2.START_EPOCH -80
+
+      - name: Threshold NLL
+        run: |
+          cat ${GITHUB_WORKSPACE}/examples/lorenz/output/train.log | \
+          grep -o "val_nll_heldin: \d*.\d*" | \
+          awk -F: '{if($2<0.65)print$2}' | \
+          [[ $(wc -l) -gt 3 ]]
