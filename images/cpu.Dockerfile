@@ -18,7 +18,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
         build-essential \
-        wget \
+        curl \
         git \
         rsync \
     && apt-get clean \
@@ -34,7 +34,7 @@ WORKDIR /opt
 # Install bazel
 ARG BAZELISK_VERSION=1.11.0
 RUN mkdir /bazel \
-    && wget --no-check-certificate -O /opt/bazelisk "https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64" \
+    && curl -LJ "https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64" > /opt/bazelisk \
     && chmod +x /opt/bazelisk
 # Generated artifact located in /opt/addons/artifacts/tensorflow_addons-*.whl
 RUN git clone https://github.com/tensorflow/addons.git \
