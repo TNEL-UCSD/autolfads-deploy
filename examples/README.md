@@ -1,4 +1,10 @@
-# Data with Persistent Volumes
+# Examples
+
+This directory contains example AutoLFADS experiments. Refer to the individual directories for dataset descriptions and usage instructions. Utility scripts to generate summary figures of firing rate (`firing_rate_inference.py`) and hyperparameter progression (`hp_progression.py`) are also found in the root examples directory. Use `--help` with either script to learn more about their usage.
+
+# Useful Tips
+
+## KubeFlow Data Management
 
 If you don't have a storage network solution that can connected to your KubeFlow cluster, you can copy data to a Persistent Volume Claim (PVC) using the below configuration. The top block creates the storage request (change the amount to the required value), and the bottom creates a simple shell container where you can inspect and move files around as necessary.
 

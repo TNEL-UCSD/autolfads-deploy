@@ -1,0 +1,159 @@
+apiVersion: kubeflow.org/v1beta1
+kind: Experiment
+metadata:
+  name: autolfads-lorenz
+  namespace: 'kubeflow-user-example-com'
+spec:
+  maxTrialCount: 1000
+  parallelTrialCount: 20
+  maxFailedTrialCount: 3
+  resumePolicy: FromVolume
+  objective:
+    type: minimize
+    goal: 0.4
+    objectiveMetricName: smth_val_nll_heldin
+    additionalMetricNames:
+      - loss
+      - nll_heldin
+      - smth_nll_heldin
+      - wt_kl
+      - wt_co_kl
+      - wt_ic_kl
+      - wt_l2
+      - gnorm
+      - kl_wt
+      - l2_wt
+      - val_loss
+      - val_nll_heldin
+      - val_wt_kl
+      - val_wt_co_kl
+      - val_wt_ic_kl
+      - val_wt_l2
+  algorithm:
+    algorithmName: pbt
+    algorithmSettings:
+      - name: suggestion_trial_dir
+        value: /var/log/katib/checkpoints/
+      - name: n_population
+        value: '20'
+      - name: truncation_threshold
+        value: '0.4'
+  parameters:
+    - name: lr
+      parameterType: double
+      feasibleSpace:
+        min: '0.00001'
+        max: '0.005'
+        step: '0.00001'
+    - name: do
+      parameterType: double
+      feasibleSpace:
+        min: '0.0'
+        max: '0.6'
+        step: '0.1'
+    - name: cd
+      parameterType: double
+      feasibleSpace:
+        min: '0.01'
+        max: '0.7'
+        step: '0.01'
+    - name: l2_gen
+      parameterType: double
+      feasibleSpace:
+        min: '0.0001'
+        max: '1.0'
+        step: '0.0001'
+    - name: l2_con
+      parameterType: double
+      feasibleSpace:
+        min: '0.0001'
+        max: '1.0'
+        step: '0.0001'
+    - name: kl_co
+      parameterType: double
+      feasibleSpace:
+        min: '0.000001'
+        max: '0.0001'
+        step: '0.000001'
+    - name: kl_ic
+      parameterType: double
+      feasibleSpace:
+        min: '0.00001'
+        max: '0.001'
+        step: '0.00001'
+  metricsCollectorSpec:
+    collector:
+      kind: StdOut
+  trialTemplate:
+    primaryContainerName: training-container
+    trialParameters:
+      - name: learningRate
+        description: Learning rate
+        reference: lr
+      - name: dropoutRate
+        description: Dropout rate
+        reference: do
+      - name: cdRate
+        description: CD Rate
+        reference: cd
+      - name: l2GenScale
+        description: L2 Gen Scale
+        reference: l2_gen
+      - name: l2ConScale
+        description: L2 Con Scale
+        reference: l2_con
+      - name: klCoWeight
+        description: KL CO Weight
+        reference: kl_co
+      - name: klIcWeight
+        description: KL IC Weight
+        reference: kl_ic
+    trialSpec:
+      apiVersion: batch/v1
+      kind: Job
+      spec:
+        template:
+          metadata:
+            annotations:
+              sidecar.istio.io/inject: "false"
+          spec:
+            containers:
+              - name: training-container
+                image: ucsdtnel/autolfads:latest
+                # image: ucsdtnel/autolfads:latest-gpu
+                imagePullPolicy: Always
+                resources:
+                  limits:
+                    cpu: "4"
+                    # nvidia.com/gpu: 1
+                command:
+                  - "python3"
+                  - "main.py"
+                  - "--checkpoint=/var/log/katib/checkpoints"
+                  - "--data=/share/data"
+                  - "--config-file=/share/data/config.yaml"
+                  - "--epochs=50"
+                  - "TRAIN.LR.INIT"
+                  - "${trialParameters.learningRate}"
+                  - "MODEL.DROPOUT_RATE"
+                  - "${trialParameters.dropoutRate}"
+                  - "MODEL.CD_RATE"
+                  - "${trialParameters.cdRate}"
+                  - "TRAIN.L2.GEN_SCALE"
+                  - "${trialParameters.l2GenScale}"
+                  - "TRAIN.L2.CON_SCALE"
+                  - "${trialParameters.l2ConScale}"
+                  - "TRAIN.KL.CO_WEIGHT"
+                  - "${trialParameters.klCoWeight}"
+                  - "TRAIN.KL.IC_WEIGHT"
+                  - "${trialParameters.klIcWeight}"
+                volumeMounts:
+                  - name: data
+                    mountPath: /share/data
+                    subPath: lorenz
+                    readOnly: True
+            volumes:
+              - name: data
+                persistentVolumeClaim:
+                  claimName: exp-data
+            restartPolicy: Never

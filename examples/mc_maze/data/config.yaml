@@ -1,0 +1,48 @@
+---
+# Config for Neural Latents MC Maze data
+MODEL:
+  DATA_DIM: 182
+  CS_DIM: 45
+  SEQ_LEN: 180
+  FP_LEN: 40
+  IC_ENC_DIM: 100
+  CI_ENC_DIM: 80
+  CON_DIM: 80
+  CO_DIM: 4
+  IC_DIM: 100
+  GEN_DIM: 100
+  FAC_DIM: 40
+  DROPOUT_RATE: 0.05
+  CD_RATE: 0.5
+  CD_PASS_RATE: 0.0
+  CO_PRIOR_TAU: 10.0
+  CO_PRIOR_NVAR: 0.1
+  IC_PRIOR_VAR: 0.1
+  IC_POST_VAR_MIN: 1.0e-4
+TRAIN:
+  DATA:
+    DIR: /share/data
+    PREFIX: mc_maze_train
+  BATCH_SIZE: 100
+  MAX_EPOCHS: 10000
+  MAX_GRAD_NORM: 200.0
+  LOSS_SCALE: 10000.0
+  LR: 
+    INIT: 0.004
+    STOP: 1.0e-10
+    DECAY: 1.0
+  ADAM_EPSILON: 1.0e-8
+  L2:
+    START_EPOCH: 0
+    INCREASE_EPOCH: 80
+    IC_ENC_SCALE: 0.0
+    CI_ENC_SCALE: 0.0
+    GEN_SCALE: 1.0e-4
+    CON_SCALE: 1.0e-4
+  KL:
+    START_EPOCH: 0
+    INCREASE_EPOCH: 80
+    IC_WEIGHT: 1.0e-4
+    CO_WEIGHT:  1.0e-4
+  MODEL_DIR: /share/output/mc-maze
+  OVERWRITE: True
