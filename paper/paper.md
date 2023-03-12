@@ -19,10 +19,10 @@ authors:
     affiliation: "1"
   - name: Chethan Pandarinath
     # orcid: 0000-0000-0000-0000
-    affiliation: "3, 4, 5, †"
+    affiliation: "3, 4, 5, 6"
   - name: Vikash Gilja^[Corresponding author]
     # orcid: 0000-0000-0000-0000
-    affiliation: "1, †"
+    affiliation: "1, 6"
 
 affiliations:
   - name: Department of Electrical and Computer Engineering, University of California San Diego
@@ -36,7 +36,7 @@ affiliations:
   - name: Department of Neurosurgery, Emory University
     index: 5
   - name: These authors contributed equally
-    index: "†"
+    index: 6
 date: 30 June 2022
 bibliography: paper.bib
 
