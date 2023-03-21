@@ -25,15 +25,15 @@ authors:
     affiliation: "1, 6"
 
 affiliations:
-  - name: Department of Electrical and Computer Engineering, University of California San Diego
+  - name: Department of Electrical and Computer Engineering, University of California San Diego, United States of America
     index: 1
-  - name: Institute for Neural Computation, University of California San Diego
+  - name: Institute for Neural Computation, University of California San Diego, United States of America
     index: 2
-  - name: Center for Machine Learning, Georgia Institute of Technology
+  - name: Center for Machine Learning, Georgia Institute of Technology, United States of America
     index: 3
-  - name: Department of Biomedical Engineering, Georgia Institute of Technology
+  - name: Department of Biomedical Engineering, Georgia Institute of Technology, United States of America
     index: 4
-  - name: Department of Neurosurgery, Emory University
+  - name: Department of Neurosurgery, Emory University, United States of America
     index: 5
   - name: These authors contributed equally
     index: 6
