@@ -35,7 +35,7 @@ Follow the appropriate guide below to run AutoLFADS on your target platform. We 
 
 Running LFADS in a container provides isolation from your host operating system and instead relies on a system installed container runtime. This workflow is suitable for evaluating algorithm operation on _small_ datasets or exploring specific model parameter changes. It is suitable for use on shared compute environments and other platforms where there is limited system package isolation.
 
-**Prerequisites:** Container runtime (e.g. Docker - [Linux / Mac / Windows](https://docs.docker.com/get-docker/), Podman - [Linux / Mac / Windows](https://github.com/containers/podman/releases), containerD - [Linux / Windows](https://github.com/containerd/containerd/releases)).
+**Prerequisites:** Container runtime (e.g. Docker - [Linux / Mac / Windows](https://docs.docker.com/get-docker/), Podman - [Linux / Mac / Windows](https://github.com/containers/podman/releases), containerD - [Linux / Windows](https://github.com/containerd/containerd/releases)) and the [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) (GPU only).
 
 > Instructions are provided in docker syntax, but can be easily modified for other container runtimes
 
@@ -59,10 +59,12 @@ Running LFADS in a container provides isolation from your host operating system 
     #          <location for generated outputs>
     cd <my-data-directory>
     ```
-1. Run LFADS
+1. Run LFADS (bash scripts provided in `examples` for convenience)
     ```bash
     # Docker flags
     #   --rm removes container resources on exit
+    #   --runtime specifies a non-default container runtime
+    #   --gpus specifies which gpus to provide to the container
     #   -it start the container with interactive input and TTY
     #   -v <host location>:<container location> mount a path from host to container
     #       $(pwd): expands the terminal working directory so you don't need to type a fully qualified path
@@ -71,9 +73,17 @@ Running LFADS in a container provides isolation from your host operating system 
     #   --checkpoint location inside container that maps to a host location to store model outputs
     #   --config-file location inside container that contains training configuration
     #   KEY VALUE command line overrides for training configuration
+
+    # For CPU
     docker run --rm -it -v $(pwd):/share ucsdtnel/autolfads:$TAG \
         --data /share/data \
-        --checkpoint /share/output \
+        --checkpoint /share/container_output \
+        --config-file /share/data/config.yaml
+    
+    # For GPU (Note: $TAG value should have a `-gpu` suffix`)
+    docker run --rm --runtime=nvidia --gpus='"device=0"' -it -v $(pwd):/share ucsdtnel/autolfads:$TAG \
+        --data /share/data \
+        --checkpoint /share/container_output \
         --config-file /share/data/config.yaml
     ```
 

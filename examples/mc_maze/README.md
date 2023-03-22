@@ -7,15 +7,9 @@ As part of the NeuralLatents competition, a set of reference datasets can be use
 Container Runtime:
 
 ```bash
-# 1. Replace $TAG with latest or the specific AutoLFADS image version you want to run
-# 2. Start the experiment:
-docker run --rm -it -v $(pwd):/share ucsdtnel/autolfads:$TAG \
-        --data /share/data \
-        --checkpoint /share/output \
-        --config-file /share/data/config.yaml
+# 1. Run the bash script that starts the Docker container
+bash container_run.sh
 ```
-
-> `container_run.sh` is provided as a convenience for Mac/Linux users
 
 Ray:
 

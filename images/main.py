@@ -4,6 +4,8 @@ import os, pickle, shutil
 # Don't log the TensorFlow info messages on imports
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "1"
 import tensorflow as tf
+for gpu in tf.config.experimental.list_physical_devices("GPU"):
+    tf.config.experimental.set_memory_growth(gpu, True)
 from lfads_tf2.models import LFADS
 from lfads_tf2.defaults import get_cfg_defaults
 from lfads_tf2.tuples import BatchInput
