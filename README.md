@@ -1,6 +1,6 @@
 # Scaling AutoLFADS
 
-[![](https://img.shields.io/badge/autolfads--tf2-e6aae8a-informational)](https://github.com/snel-repo/autolfads-tf2/tree/e6aae8aaa7deba2717d0c950c868b32349741258) [![](https://img.shields.io/badge/Docker-ucsdtnel%2Fautolfads-informational)](https://hub.docker.com/u/ucsdtnel/autolfads) [![](https://img.shields.io/badge/DOI-10.5281/zenodo.6786931-informational)](https://doi.org/10.5281/zenodo.6786931)
+[![](https://img.shields.io/badge/autolfads--tf2-e6aae8a-informational)](https://github.com/snel-repo/autolfads-tf2/tree/e6aae8aaa7deba2717d0c950c868b32349741258) [![](https://img.shields.io/badge/Docker-ucsdtnel%2Fautolfads-informational)](https://hub.docker.com/r/ucsdtnel/autolfads) [![DOI](https://joss.theoj.org/papers/10.21105/joss.05023/status.svg)](https://doi.org/10.21105/joss.05023)
 
 ## Introduction
 
@@ -182,12 +182,16 @@ If you found this work helpful, please cite the following works:
     year = {2021},
     publisher = {Cold Spring Harbor Laboratory}
 }
-@software{patel_aashish_2022_6786932,
-    author = {Patel, Aashish and Sedler, Andrew and Huang, Jingya and Pandarinath, Chethan and Gilja, Vikash},
-    title = {Deployment strategies for scaling AutoLFADS to model neural population dynamics},
-    year = {2022},
-    publisher = {Zenodo},
-    doi = {10.5281/zenodo.6786932},
-    url = {https://doi.org/10.5281/zenodo.6786932}
-}
+@article{Patel2023, 
+    doi = {10.21105/joss.05023},
+    url = {https://doi.org/10.21105/joss.05023},
+    year = {2023},
+    publisher = {The Open Journal},
+    volume = {8},
+    number = {83},
+    pages = {5023},
+    author = {Aashish N. Patel and Andrew R. Sedler and Jingya Huang and Chethan Pandarinath and Vikash Gilja},
+    title = {High-performance neural population dynamics modeling enabled by scalable computational infrastructure},
+    journal = {Journal of Open Source Software}
+} 
 ```
