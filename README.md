@@ -59,10 +59,12 @@ Running LFADS in a container provides isolation from your host operating system 
     #          <location for generated outputs>
     cd <my-data-directory>
     ```
-1. Run LFADS (`bash` scripts provided in `examples` for convenience)
+1. Run LFADS (bash scripts provided in `examples` for convenience)
     ```bash
     # Docker flags
     #   --rm removes container resources on exit
+    #   --runtime specifies a non-default container runtime
+    #   --gpus specifies which gpus to provide to the container
     #   -it start the container with interactive input and TTY
     #   -v <host location>:<container location> mount a path from host to container
     #       $(pwd): expands the terminal working directory so you don't need to type a fully qualified path
@@ -73,13 +75,13 @@ Running LFADS in a container provides isolation from your host operating system 
     #   KEY VALUE command line overrides for training configuration
 
     # For CPU
-    docker run --rm -it -v $(pwd):/share ucsdtnel/autolfads:latest \
+    docker run --rm -it -v $(pwd):/share ucsdtnel/autolfads:$TAG \
         --data /share/data \
         --checkpoint /share/container_output \
         --config-file /share/data/config.yaml
     
-    # For GPU
-    docker run --rm --runtime=nvidia --gpus='"device=0"' -it -v $(pwd):/share ucsdtnel/autolfads:latest-gpu \
+    # For GPU (Note: $TAG value should have a `-gpu` suffix`)
+    docker run --rm --runtime=nvidia --gpus='"device=0"' -it -v $(pwd):/share ucsdtnel/autolfads:$TAG \
         --data /share/data \
         --checkpoint /share/container_output \
         --config-file /share/data/config.yaml
