@@ -1,6 +1,6 @@
 # Istio
 
-[![](https://img.shields.io/badge/Istio-v1.12.1-informational)](https://istio.io/v1.12/docs/)
+[![](https://img.shields.io/badge/Istio-v1.18.6-informational)](https://istio.io/v1.18/docs/)
 
 The service mesh for within-cluster networking and ingress/egress operations.
 
