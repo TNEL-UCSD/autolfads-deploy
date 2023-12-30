@@ -9,14 +9,10 @@ resources:
 - manifests/common/dex/overlays/istio
 # OIDC Authservice
 - manifests/common/oidc-authservice/base
-# Istio Gateway
-- manifests/common/istio-1-11/cluster-local-gateway/base
 # Kubeflow namespace
 - manifests/common/kubeflow-namespace/base
 # Kubeflow Roles
 - manifests/common/kubeflow-roles/base
-# Kubeflow Istio Resources
-- manifests/common/istio-1-11/kubeflow-istio-resources/base
 
 
 # Kubeflow Pipelines
@@ -31,6 +27,8 @@ resources:
 - manifests/apps/profiles/upstream/overlays/kubeflow
 # Volumes Web App
 - manifests/apps/volumes-web-app/upstream/overlays/istio
+# PVCViewer Controller
+- manifests/apps/pvcviewer-controller/upstream/default
 # Tensorboards Controller
 - manifests/apps/tensorboard/tensorboard-controller/upstream/overlays/kubeflow
 # Tensorboard Web App

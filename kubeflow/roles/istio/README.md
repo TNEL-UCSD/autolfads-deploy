@@ -6,6 +6,8 @@ The service mesh for within-cluster networking and ingress/egress operations.
 
 ## Installation
 
+_Prerequisites:_ The `istioctl` tool corresponding to the above version should be installed to `/usr/local/bin/`
+
 Currently the provided roles install the [default profile](https://istio.io/latest/docs/setup/additional-setup/config-profiles/) using the `istioctl` tool. The following addons are also installed:
 
 - Prometheus (TODO: this should be separated out with only the exporters present in this playbook)
