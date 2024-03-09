@@ -1,8 +1,10 @@
 # This is an auto-generated file. DO NOT EDIT
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
-metadata:
+metadata: # kpt-merge: /workfloweventbindings.argoproj.io
   name: workfloweventbindings.argoproj.io
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'apiextensions.k8s.io|CustomResourceDefinition|default|workfloweventbindings.argoproj.io'
 spec:
   group: argoproj.io
   names:
@@ -320,6 +322,26 @@ spec:
                                     objectLocking:
                                       type: boolean
                                   type: object
+                                encryptionOptions:
+                                  properties:
+                                    enableEncryption:
+                                      type: boolean
+                                    kmsEncryptionContext:
+                                      type: string
+                                    kmsKeyId:
+                                      type: string
+                                    serverSideCustomerKeySecret:
+                                      properties:
+                                        key:
+                                          type: string
+                                        name:
+                                          type: string
+                                        optional:
+                                          type: boolean
+                                      required:
+                                      - key
+                                      type: object
+                                  type: object
                                 endpoint:
                                   type: string
                                 insecure:
@@ -355,6 +377,8 @@ spec:
                           properties:
                             default:
                               type: string
+                            description:
+                              type: string
                             enum:
                               items:
                                 type: string
@@ -367,6 +391,17 @@ spec:
                               type: string
                             valueFrom:
                               properties:
+                                configMapKeyRef:
+                                  properties:
+                                    key:
+                                      type: string
+                                    name:
+                                      type: string
+                                    optional:
+                                      type: boolean
+                                  required:
+                                  - key
+                                  type: object
                                 default:
                                   type: string
                                 event:

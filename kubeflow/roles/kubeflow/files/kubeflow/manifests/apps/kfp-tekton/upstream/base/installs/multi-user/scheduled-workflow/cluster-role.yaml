@@ -19,6 +19,7 @@ rules:
   - kubeflow.org
   resources:
   - scheduledworkflows
+  - scheduledworkflows/finalizers
   verbs:
   - create
   - get
@@ -35,12 +36,19 @@ rules:
   - create
   - patch
 - apiGroups:
+  - ''
+  resources:
+  - namespaces
+  verbs:
+  - get
+- apiGroups:
   - tekton.dev
   resources:
   - pipelineruns
   - taskruns
   - conditions
   - runs
+  - customruns
   - tasks
   verbs:
   - create

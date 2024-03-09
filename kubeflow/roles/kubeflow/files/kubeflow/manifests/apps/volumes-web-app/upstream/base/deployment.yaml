@@ -5,13 +5,10 @@ metadata:
 spec:
   replicas: 1
   template:
-    metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
     spec:
       containers:
       - name: volumes-web-app
-        image: public.ecr.aws/j1r0q0g6/notebooks/volumes-web-app
+        image: docker.io/kubeflownotebookswg/volumes-web-app
         ports:
         - containerPort: 5000
         env:
@@ -21,4 +18,16 @@ spec:
           value: $(VWA_USERID_HEADER)
         - name: USERID_PREFIX
           value: $(VWA_USERID_PREFIX)
+        - name: APP_SECURE_COOKIES
+          value: $(VWA_APP_SECURE_COOKIES)
+        - name: VOLUME_VIEWER_IMAGE
+          value: filebrowser/filebrowser:v2.23.0
+        volumeMounts: 
+        - name: viewer-spec
+          mountPath: /etc/config/viewer-spec.yaml
+          subPath: viewer-spec.yaml 
       serviceAccountName: service-account
+      volumes: 
+      - name: viewer-spec
+        configMap: 
+          name: viewer-spec

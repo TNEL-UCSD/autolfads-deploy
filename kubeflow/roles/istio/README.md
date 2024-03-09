@@ -1,10 +1,12 @@
 # Istio
 
-[![](https://img.shields.io/badge/Istio-v1.12.1-informational)](https://istio.io/v1.12/docs/)
+[![](https://img.shields.io/badge/Istio-v1.18.6-informational)](https://istio.io/v1.18/docs/)
 
 The service mesh for within-cluster networking and ingress/egress operations.
 
 ## Installation
+
+_Prerequisites:_ The `istioctl` tool corresponding to the above version should be installed to `/usr/local/bin/`
 
 Currently the provided roles install the [default profile](https://istio.io/latest/docs/setup/additional-setup/config-profiles/) using the `istioctl` tool. The following addons are also installed:
 
